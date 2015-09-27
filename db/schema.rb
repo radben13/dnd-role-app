@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150918161949) do
 
-  create_table "item_types", force: :cascade do |t|
+  create_table "items", force: :cascade do |t|
     t.string   "name",            null: false
     t.string   "slug",            null: false
     t.string   "type"
@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20150918161949) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "item_types", ["is_armor?"], name: "index_item_types_on_is_armor?"
-  add_index "item_types", ["is_weapon?"], name: "index_item_types_on_is_weapon?"
-  add_index "item_types", ["slug"], name: "index_item_types_on_slug"
+  add_index "items", ["is_armor?"], name: "index_items_on_is_armor?"
+  add_index "items", ["is_weapon?"], name: "index_items_on_is_weapon?"
+  add_index "items", ["slug"], name: "index_items_on_slug"
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150918161949) do
     t.text     "description"
     t.integer  "level"
     t.integer  "experience"
-    t.integer  "player_id"
+    t.integer  "player_id",   null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

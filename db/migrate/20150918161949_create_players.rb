@@ -14,11 +14,11 @@ class CreatePlayers < ActiveRecord::Migration
       t.text :description
       t.integer :level
       t.integer :experience
-      t.references :player, index: true, foreign_key: true
+      t.references :player, null: false, index: true, foreign_key: true
       t.timestamps null: false
     end
     
-    create_table :item_types do |t|
+    create_table :items do |t|
       t.string :name, null: false
       t.string :slug, index: true, null: false
       t.string :type
