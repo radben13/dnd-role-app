@@ -1,19 +1,30 @@
 <%= form_for(@player) do |f| %>
-  <% if @player.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
-
-      <ul>
-      <% @player.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="player-form-wrapper" ng-controller="PlayerFormController">
+    <% if @player.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+  
+        <ul>
+        <% @player.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
-  <div>
-    <%= f.in %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <div>
+      <%= f.label :profile_img_url %>
+      <%= f.text_field :profile_img_url, :ng_model => "profileImgUrl" %>
+    </div>
+    <div>
+      <%= f.label :pin %>
+      <%= f.number_field :pin, :ng_model => "pin" %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>

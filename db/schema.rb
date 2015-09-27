@@ -52,11 +52,11 @@ ActiveRecord::Schema.define(version: 20150918161949) do
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.string   "race"
-    t.string   "roleType"
+    t.string   "role_type"
     t.text     "description"
     t.integer  "level"
     t.integer  "experience"
-    t.integer  "player_id",   null: false
+    t.integer  "player_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
