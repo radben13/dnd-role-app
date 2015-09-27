@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  price_in_copper: 1
+  weight: 1
+  dmg_dice_id: 
+  dmg_dice_count: 1
+
+two:
+  name: MyString
+  type: 
+  price_in_copper: 1
+  weight: 1
+  dmg_dice_id: 
+  dmg_dice_count: 1
