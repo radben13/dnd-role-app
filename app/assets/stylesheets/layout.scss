@@ -1,0 +1,36 @@
+@import "tools/normalize.scss";
+// Scss Tools
+@import "tools/tools.scss";
+
+body {
+  color: $app-black;
+  background: $app-white;
+}
+a {
+  color: $app-black;
+}
+
+header {
+  @extend %wrapped;
+  #app-logo a {
+    text-decoration: none;
+    font-size: 30px;
+    font-family: 'Kaushan Script', cursive;
+  }
+}
+
+.wrapper {
+  @extend %wrapped;
+}
+
+footer {
+  @extend %wrapped;
+  .copyright {
+    text-align: center;
+    margin: 10px 0 0;
+    p {
+      margin: 0;
+      padding: 0 20px;
+    }
+  }
+}

@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Workspace</title>
+  <title>DnD Roles</title>
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<header>
+    <h1 id="app-logo"><a href="/">DnD Roles</a></h1>
+    <h2 class="app-signature">Radben13</h2>
+    <nav>
+      <ul>
+        <li><%= link_to "Player", players_path %></li>
+        <li><%= link_to "Item", items_path %></li>
+      </ul>
+    </nav>
+</header>
+<div class="wrapper">
 <%= yield %>
-
+</div>
+<footer>
+  <div class="copyright">
+    <p>&copy; 2015 Braden Van Wagenen</p>
+    <p>Free For Everyone</p>
+  </div>
+</footer>
 </body>
 </html>

@@ -11,29 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918173135) do
+ActiveRecord::Schema.define(version: 20150918161949) do
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
+  create_table "item_types", force: :cascade do |t|
+    t.string   "name",            null: false
+    t.string   "slug",            null: false
     t.string   "type"
+    t.string   "img_url"
+    t.text     "modifier"
     t.integer  "price_in_copper"
     t.integer  "weight"
-    t.integer  "dmg_dice_id"
+    t.boolean  "is_weapon?",      null: false
+    t.boolean  "is_armor?",       null: false
+    t.integer  "armor"
+    t.integer  "dmg_dice_value"
     t.integer  "dmg_dice_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "dmg_dice"
-    t.string   "stat_modifiers"
   end
 
-  add_index "items", ["dmg_dice_id"], name: "index_items_on_dmg_dice_id"
+  add_index "item_types", ["is_armor?"], name: "index_item_types_on_is_armor?"
+  add_index "item_types", ["is_weapon?"], name: "index_item_types_on_is_weapon?"
+  add_index "item_types", ["slug"], name: "index_item_types_on_slug"
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
     t.string   "profile_img_url"
+    t.integer  "pin"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "role_items", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "item_type_id"
+  end
+
+  add_index "role_items", ["role_id"], name: "index_role_items_on_role_id"
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -42,9 +56,9 @@ ActiveRecord::Schema.define(version: 20150918173135) do
     t.text     "description"
     t.integer  "level"
     t.integer  "experience"
+    t.integer  "player_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "player_id"
   end
 
   add_index "roles", ["player_id"], name: "index_roles_on_player_id"
