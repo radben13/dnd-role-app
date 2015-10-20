@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   
   resources :players do
-    resources :roles
+    resources :roles do
+      resources :attr_sets
+    end
   end
-  
   resources :items
   
+  get "admin/test", :to => "pages#dnd_test"
+  get "api/roles/types", :to => "roles#get_role_types"
   
   root 'pages#index'
   # The priority is based upon order of creation: first created -> highest priority.

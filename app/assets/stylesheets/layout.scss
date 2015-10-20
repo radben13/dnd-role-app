@@ -6,31 +6,73 @@ body {
   color: $app-black;
   background: $app-white;
 }
+
 a {
   color: $app-black;
 }
 
-header {
+header, .wrapper {
   @extend %wrapped;
-  #app-logo a {
-    text-decoration: none;
-    font-size: 30px;
-    font-family: 'Kaushan Script', cursive;
+  border-left: 1px solid darken($app-gray, 10%);
+  border-right: 1px solid darken($app-gray, 10%);
+}
+
+header {
+  @extend %clearfix;
+  background: $app-gray;
+  position: relative;
+  padding: 10px 20px;
+  #app-logo {
+    margin: 0;
+    a {
+      text-decoration: none;
+      font-size: 30px;
+      font-family: 'Kaushan Script', cursive;
+    }
+  }
+  #app-signature {
+    font-size: 15px;
+  }
+  #app-logo, #app-signature, nav {
+    box-sizing: border-box;
+    line-height: 45px;
+    padding: 0 10px;
+    float: left;
+    height: 45px;
+  }
+  nav {
+    ul > li {
+      display: inline-block;
+      + li  {
+        margin-left: 10px;
+      }
+      a {
+        font-size: 20px;
+        display: block;
+        padding: 0 10px;
+        text-decoration: none;
+      }
+    }
   }
 }
 
 .wrapper {
-  @extend %wrapped;
+  padding: 10px 20px 20px;
+  background: #fff;
+  border-bottom: 2px solid $app-gray;
 }
 
 footer {
   @extend %wrapped;
   .copyright {
     text-align: center;
-    margin: 10px 0 0;
+    margin: 0;
     p {
       margin: 0;
       padding: 0 20px;
     }
   }
+}
+.disclaimer {
+  margin-top: 10px;
 }

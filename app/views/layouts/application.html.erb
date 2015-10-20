@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us" ng-app="dnd_app">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DnD Roles</title>
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <header>
     <h1 id="app-logo"><a href="/">DnD Roles</a></h1>
-    <h2 class="app-signature">Radben13</h2>
+    <h2 id="app-signature">by Radben13</h2>
     <nav>
       <ul>
-        <li><%= link_to "Player", players_path %></li>
-        <li><%= link_to "Item", items_path %></li>
+        <li><%= link_to "Players", players_path %></li>
+        <li><%= link_to "Items", items_path %></li>
       </ul>
     </nav>
 </header>

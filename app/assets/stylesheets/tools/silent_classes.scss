@@ -1,4 +1,17 @@
 %wrapped {
     max-width: 1080px;
     margin: 0 auto;
+    box-sizing: border-box;
+}
+
+%clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+%link-list {
+    
 }

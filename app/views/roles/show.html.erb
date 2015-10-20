@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
-
+<div class="role-display">
 <p>
-  <strong>Name:</strong>
+  <div class="value-header">Name:</div>
   <%= @role.name %>
 </p>
 
 <p>
-  <strong>Roletype:</strong>
-  <%= @role.roleType %>
+  <div class="value-header">Class:</div>
+  <%= @role.role_type %>
 </p>
 
 <p>
-  <strong>Race:</strong>
+  <div class="value-header">Race:</div>
   <%= @role.race %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <div class="value-header">Description:</div>
   <%= @role.description %>
 </p>
-
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+</div>
+<%= link_to 'Delete', player_role_path(@player, @role), :method => :delete, :data => {confirm: "Are you sure you wish to delete this role?"} %> |
+<%= link_to 'Edit', edit_player_role_path(@player, @role) %> |
+<%= link_to 'Back', player_path(@player) %>

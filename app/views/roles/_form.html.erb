@@ -1,4 +1,4 @@
-<%= form_for(@role) do |f| %>
+<%= form_for [@player, @role], :html => {"ng-controller" => "RoleFormCtrlOne"} do |f| %>
   <% if @role.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
@@ -16,12 +16,23 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :roleType %><br>
-    <%= f.text_field :roleType %>
+    <%= f.label :race %><br>
+    <%= content_tag :select, :id => "role_race", :ng_model => "tempRole.race", :name => "role[race]", :ng_init => "tempRole.race = '#{@role[:race]}'"  do %>
+      <option ng-repeat="race in roleTypes.raceList" ng-attr-value="{{race}}">{{ race }}</option>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :race %><br>
-    <%= f.text_field :race %>
+    <label>Gender</label><br>
+    <%= f.radio_button :gender, "male" %>
+    <%= f.label :gender_male, "Male" %><br>
+    <%= f.radio_button :gender, "female" %>
+    <%= f.label :gender_female, "Female" %>
+  </div>
+  <div class="field">
+    <%= f.label :role_type, "Class" %><br>
+    <%= content_tag :select, :id => "role_role_type", :ng_model => "tempRole.roleType", :name => "role[role_type]", :ng_init => "tempRole.roleType = '#{@role[:role_type]}'"  do %>
+      <option ng-repeat="type in roleTypes.typeList" ng-attr-value="{{type}}">{{ type }}</option>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :description %><br>

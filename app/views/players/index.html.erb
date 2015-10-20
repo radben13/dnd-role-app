@@ -1,25 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Players</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @players.each do |player| %>
-      <tr>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Player', new_player_path %>
+<h1>All Players</h1>
+<ul class="player-list">
+<% if @players.length > 0 %>
+  <% @players.each do |player| %>
+  <li>
+    <a class="player-link" href="<%= player_path(player) %>">
+      <div class="player-name">
+        <%= player.name %>
+      </div>
+      <div class="player-img">
+        <img src="<%= player.profile_img_url %>">
+      </div>
+    </a>
+  </li>
+  <% end %>
+  <li>
+    <a class="player-link" href="<%= new_player_path %>">
+      <div class="player-name">
+        Add a Player
+      </div>
+      <div class="player-img add-item-img">
+        <div>+</div>
+      </div>
+    </a>
+  </li>
+<% end %>
+</ul>
+<h3 class="disclaimer">Disclaimer:</h3>
+<p>As everyone can access any player's characters (and alter them) at any time. Please don't tamper with anyone else's content.</p>

@@ -1,0 +1,28 @@
+@import "tools/tools.scss";
+
+.items-display {
+
+> h2 {
+  padding: 10px 0;
+  border-bottom: 2px solid $app-gray;
+}
+
+.item-list {
+  @include object_list;
+  .li-name {
+    font-size: 15px;
+  }
+}
+
+.armor-list, .weapon-list {
+  > p {
+    padding: 10px 0;
+    border-bottom: 1px solid $app-gray;
+  }
+}
+
+.armor-list, .weapon-list, .non-combat-list {
+  margin-top: 20px;
+}
+
+}

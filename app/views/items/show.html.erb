@@ -1,0 +1,24 @@
+<div class="item-display">
+  <h2><%= @item.name %></h2>
+  <div class="item-details">
+    <p>
+      <span>Weight:</span> <%= display_weight %>
+    </p>
+    <p>
+      <span>Value:</span> <%= display_value %>
+    </p>
+    <p>
+      <span>Description:</span> <%= @item.description %>
+    </p>
+  </div>
+  <% if @item.can_be_armor %>
+    
+  <% end %>
+  <% if @item.can_be_weapon %>
+    
+  <% end %>
+  <div class="item-options">
+    <%= link_to "Edit", edit_item_path(@item) %> |
+    <%= link_to "Delete", item_path(@item), :method => :delete, :data => {confirm: "Are you sure you want to delete this item?"} %>
+  </div>
+</div>

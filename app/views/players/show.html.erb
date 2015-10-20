@@ -1,19 +1,48 @@
 <p id="notice"><%= notice %></p>
-<h2><%= @player.name %></h2>
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'Player List', players_path %>
-<hr>
+<div class="player-display">
+  <div class="player-img-wrapper">
+    <img src="<%= @player.profile_img_url %>">
+  </div>
+  <div class="player-details">
+    <h2 class="player-name"><%= @player.name %></h2>
+    <ul class="player-options">
+      <li><%= link_to 'Edit', edit_player_path(@player) %></li>
+      <li><%= link_to 'Delete', player_path(@player), :method => :delete, confirm: "Are you sure you wish to delete this player?" %></li>
+    </ul>
+  </div>
+</div>
 <div>
   <h3>Roles</h3>
+  <ul class="role-list">
   <% if @player.roles.length > 0 %>
     <% @player.roles.each do |role| %>
     <li>
-      <h4><%= role.name %></h4>
-      <div>
-        <span><%= role.type %></span>
-      </div>
+      <a class="role-link" href="<%= player_role_path(@player, role) %>">
+        <div class="role-name">
+          <%= role.name %>
+        </div>
+        <div class="role-race">
+          <%= role.race.capitalize %>
+        </div>
+        <div class="role-level">
+            Lvl <%= role.level %>
+        </div>
+        <div class="role-img">
+          <img src="<%= role.get_role_img %>">
+        </div>
+      </a>
     </li>
     <% end %>
+  <% end %>
+    <li>
+      <a class="role-link" href="<%= new_player_role_path(@player) %>">
+        <div class="role-name">
+          Add a Role
+        </div>
+        <div class="role-img add-item-img">
+          <div>+</div>
+        </div>
+      </a>
+    </li>
+  </ul>
 </div>
-<hr>
-<%= link_to 'Home', pages_path %>

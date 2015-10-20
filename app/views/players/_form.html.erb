@@ -16,12 +16,13 @@
       <%= f.text_field :name %>
     </div>
     <div>
-      <%= f.label :profile_img_url %>
-      <%= f.text_field :profile_img_url, :ng_model => "profileImgUrl" %>
+      <%= f.label :profile_img_url, "Profile Picture URL" %>
+      <img ng-src="{{ profileImgUrl }}" class="profile-img">
+      <%= f.text_field :profile_img_url, :ng_model => "profileImgUrl", :ng_init => ("profileImgUrl = " + get_player_img_url) %>
     </div>
     <div>
       <%= f.label :pin %>
-      <%= f.number_field :pin, :ng_model => "pin" %>
+      <%= f.number_field :pin, :ng_model => "pin", :ng_init => ("pin = " + get_player_pin) %>
     </div>
     <div class="actions">
       <%= f.submit %>

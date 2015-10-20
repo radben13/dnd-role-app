@@ -1,8 +1,60 @@
-<h2>Items</h2>
-<div>
-    <% if has_new_item %>
-        <% new_item = Item.last %>
-        <h3>Newest Item</h3>
-        <div></div><%=  %>
+<div class="items-display">
+  <h2>Items</h2>
+  <div class="armor-list">
+    <h3>Armor</h3>
+    <% if @items.armor.length > 0 %>
+    <ul class="item-list">
+      <% @items.armor.each do |item| %>
+      <li>
+        <a class="li-link" href="<%= item_path(item) %>">
+          <div class="li-name"><%= truncate(item.name, length: 15) %></div>
+          <div class="li-img">
+            <img src="<%= item.get_img_url %>">
+          </div>
+        </a>
+      </li>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>There is no armor.</p>
     <% end %>
+  </div>
+  <div class="weapon-list">
+    <h3>Weapons</h3>
+    <% if @items.weapon.length > 0 %>
+    <ul class="item-list">
+      <% @items.weapon.each do |item| %>
+      <li>
+        <a class="li-link" href="<%= item_path(item) %>">
+          <div class="li-name"><%= truncate(item.name, length: 15) %></div>
+          <div class="li-img">
+            <img src="<%= item.get_img_url %>">
+          </div>
+        </a>
+      </li>
+      <% end %>
+    </ul>
+    <% else %>
+      <p>There are no weapons.</p>
+    <% end %>
+  </div>
+  <div class="non-combat-list">
+    <h3>Non-Combat Items</h3>
+    <% if @items.non_combat.length > 0 %>
+    <ul class="item-list">
+      <% @items.non_combat.each do |item| %>
+      <li>
+        <a class="li-link" href="<%= item_path(item) %>">
+          <div class="li-name"><%= truncate(item.name, length: 15) %></div>
+          <div class="li-img">
+            <img src="<%= item.get_img_url %>">
+          </div>
+        </a>
+      </li>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>There are no non-combat items.</p>
+    <% end %>
+  </div>
 </div>

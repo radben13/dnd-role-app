@@ -11,6 +11,8 @@
  * file per style scope.
  *
  *= require layout
-
+ *= require players
+ *= require roles
+ *= require items
  *= require_self
  */

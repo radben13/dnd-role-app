@@ -1,19 +1,20 @@
 class CreatePlayers < ActiveRecord::Migration
   def change
     create_table :players do |t|
-      t.string :name
+      t.string :name, index: true, null: false
       t.string :profile_img_url
       t.integer :pin
       t.timestamps null: false
     end
     
     create_table :roles do |t|
-      t.string :name
-      t.string :race
+      t.string :name, null: false
+      t.string :race, null: false
       t.string :role_type
       t.text :description
       t.integer :level
       t.integer :experience
+      t.integer :money_in_copper
       t.references :player, index: true, foreign_key: true
       t.timestamps null: false
     end

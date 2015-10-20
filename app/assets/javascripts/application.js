@@ -13,5 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require angular-ui-bootstrap
+//= require angular-ui-bootstrap-tpls
+//= require dnd_app
+//= require ./dnd_app_tools/module
+//= require ./dnd_app_tools/tester
+//= require ./dnd_app_tools/coordinate_map
+//= require ./dnd_app_tools/tile
+//= require ./dnd_app_tools/pathfinder
+//= require ./dnd_app_tools/map_canvas
 //= require players
 //= require roles
