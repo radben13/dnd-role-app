@@ -1,25 +1,26 @@
-<p id="notice"><%= notice %></p>
 <div class="role-display">
-<p>
-  <div class="value-header">Name:</div>
-  <%= @role.name %>
-</p>
-
-<p>
-  <div class="value-header">Class:</div>
-  <%= @role.role_type %>
-</p>
-
-<p>
-  <div class="value-header">Race:</div>
-  <%= @role.race %>
-</p>
-
-<p>
-  <div class="value-header">Description:</div>
-  <%= @role.description %>
-</p>
+<div class="role-header">
+  <div>
+    <div class="value-header">Character Name</div>
+    <p><%= @role.name %></p>
+  </div>
+  
+  <div>
+    <div class="value-header">Class</div>
+    <p><%= @role.role_type.titleize %></p>
+  </div>
+  
+  <div>
+    <div class="value-header">Race</div>
+    <p><%= @role.race.titleize %></p>
+  </div>
 </div>
-<%= link_to 'Delete', player_role_path(@player, @role), :method => :delete, :data => {confirm: "Are you sure you wish to delete this role?"} %> |
-<%= link_to 'Edit', edit_player_role_path(@player, @role) %> |
-<%= link_to 'Back', player_path(@player) %>
+<div class="detail-row">
+  <%= render :partial => "description" %>
+</div>
+<div class="detail-row">
+  <%= render :partial => "roles/attributes/show" %>
+</div>
+</div>
+<%= link_to 'Delete', role_path(@role), :method => :delete, :data => {confirm: "Are you sure you wish to delete this role?"} %> |
+<%= link_to 'Edit', edit_role_path(@role) %>

@@ -3,6 +3,7 @@ class AttrSet < ActiveRecord::Base
   validates :strength, :constitution, :dexterity, :intelligence, :wisdom, :charisma, presence: true
   
   before_create :add_racial_increases
+  after_create :start_role
   
   # Page 57 of BasicRules_Playerv3.4.pdf has a list of ability scores and their correlating modifiers
   def self.get_modifier(ability)
@@ -106,6 +107,11 @@ class AttrSet < ActiveRecord::Base
   end
   
   protected
+  
+  def start_role
+    Role.find(self[:role_id]).initiate_role
+    
+  end
   
   def add_racial_increases
     case self.role.race

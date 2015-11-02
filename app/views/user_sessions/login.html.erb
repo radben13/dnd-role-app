@@ -1,0 +1,19 @@
+<h1>Login</h1>
+<%= form_for Player.new, url: "/login", method: :post do |f| %>
+<div class="form-group">
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+</div>
+<div>
+  <%= f.submit "Sign in" %>
+</div>
+<div class="form-group">
+  <%= link_to "Create Account", new_player_path %>
+</div>
+<% end %>

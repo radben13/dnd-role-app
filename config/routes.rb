@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
   
-  resources :players do
-    resources :roles do
-      resources :attr_sets
-    end
+  resources :players, :param => :player_id
+  
+  resources :roles, only: [:show, :edit, :update, :destroy] do
+    resources :attr_sets
   end
+  
+  get "players/:player_id/new_role", :to => "roles#new", :as => :new_role
+  post "players/:player_id/create_role", :to => "roles#create", :as => :create_role
+  post "roles/:id/edit", :to => "roles#update", :as => :update_role
+  
   resources :items
   
   get "admin/test", :to => "pages#dnd_test"
   get "api/roles/types", :to => "roles#get_role_types"
+  post "login", :to => "user_sessions#new"
+  get "login", :to => "user_sessions#login", :as => :login_path
+  get "logout", :to => "user_sessions#logout", :as => :logout
   
   root 'pages#index'
   # The priority is based upon order of creation: first created -> highest priority.

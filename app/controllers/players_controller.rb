@@ -1,9 +1,15 @@
 class PlayersController < ApplicationController
   helper_method :get_player_img_url
-  helper_method :get_player_pin
+  
+  before_filter :verify_session, only: [:show, :edit, :update, :destroy]
+  force_ssl only: [:new, :create, :update, :destroy]
   
   def index
-    @players = Player.all
+    if !current_session.blank? && current_session.player.permission == "admin"
+      @players = Player.all
+    else
+      redirect_to "/", status: 301, :alert => "You do not have permission to view this page."
+    end
   end
   
   def new
@@ -11,46 +17,55 @@ class PlayersController < ApplicationController
   end
   
   def show
-    @player = Player.find(params[:id])
+    if has_permissions
+      @player = Player.find(params[:player_id])
+    else
+      redirect_to "/", status: 301, :alert => "You do not have permission to view this page."
+    end
   end
   
   def edit
-    @player = Player.find(params[:id])
+    if has_permissions
+      @player = Player.find(params[:player_id])
+    else
+      redirect_to "/", status: 301, :alert => "You do not have permission to view this page."
+    end
   end
   
   def update
-    @player = Player.find(params[:id])
-    if @player.update(player_params)
-      render :show
+    if has_permissions
+      @player = Player.find(params[:player_id])
+      if @player.update(player_params)
+        redirect_to player_path(@player)
+      else
+        redirect_to edit_player_path(@player)
+      end
     else
-      render :edit
+      redirect_to "/", status: 401, :alert => "You do not have permission to make that action."
     end
   end
   
   def create
     @player = Player.new(player_params)
     if @player.save
-      render  :show
+      redirect_to player_path(@player)
     else
-      render :new
+      redirect_to :back, alert: "There was a problem with saving the player."
     end
   end
   
   def destroy
-    @player = Player.find(params[:id])
-    @player.destroy
-    redirect_to players_path, :action => :show
+    if has_permissions
+      @player = Player.find(params[:player_id])
+      name = @player.name
+      @player.destroy
+      redirect_to "/", status: 301, :notice => "#{name}'s account has been deleted."
+    else
+      redirect_to "/", status: 301, :alert => "You do not have permission to view this page."
+    end
   end
   
   private
-  
-  def get_player_pin
-    if @player.pin
-      @player.pin.to_s
-    else
-      1000.to_s
-    end
-  end
   
   def get_player_img_url
     if !@player.profile_img_url.blank?
@@ -60,12 +75,10 @@ class PlayersController < ApplicationController
     end
   end
   
-  protected
+  private
   
   def player_params
-    params.require(:player).permit(:name, :profile_img_url, :pin)
+    params.require(:player).permit(:name, :profile_img_url, :email, :password, :password_confirmation)
   end
-  
-  
   
 end

@@ -24,3 +24,4 @@
 //= require ./dnd_app_tools/map_canvas
 //= require players
 //= require roles
+//= require attributes

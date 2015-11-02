@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020083757) do
+ActiveRecord::Schema.define(version: 20151031234231) do
 
   create_table "attr_sets", force: :cascade do |t|
     t.integer  "constitution"
@@ -71,14 +71,16 @@ ActiveRecord::Schema.define(version: 20151020083757) do
   add_index "items", ["slug"], name: "index_items_on_slug"
 
   create_table "players", force: :cascade do |t|
-    t.string   "name",            null: false
+    t.string   "email",                              null: false
+    t.string   "name"
+    t.string   "permission",      default: "player", null: false
     t.string   "profile_img_url"
-    t.integer  "pin"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
-  add_index "players", ["name"], name: "index_players_on_name"
+  add_index "players", ["email"], name: "index_players_on_email"
 
   create_table "proficiencies", force: :cascade do |t|
     t.string "name",        null: false
@@ -105,8 +107,8 @@ ActiveRecord::Schema.define(version: 20151020083757) do
   add_index "role_items", ["role_id"], name: "index_role_items_on_role_id"
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.string   "race"
+    t.string   "name",            null: false
+    t.string   "race",            null: false
     t.string   "role_type"
     t.text     "description"
     t.integer  "level"
@@ -117,8 +119,17 @@ ActiveRecord::Schema.define(version: 20151020083757) do
     t.datetime "updated_at",      null: false
     t.string   "gender"
     t.string   "img_url"
+    t.integer  "hit_points"
   end
 
   add_index "roles", ["player_id"], name: "index_roles_on_player_id"
+
+  create_table "user_sessions", force: :cascade do |t|
+    t.string   "key"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "logout_at"
+  end
 
 end

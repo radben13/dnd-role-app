@@ -1,0 +1,36 @@
+<ul ng-controller="DndAttributesController" class="role-attributes">
+  <% if !@role.attr_set.blank? %>
+  <li>
+    <p class="label">Strength</p>
+    <p class="value"><%= @role.attr_set.strength %></p>
+  </li>
+  <li>
+    <p class="label">Dexterity</p>
+    <p class="value"><%= @role.attr_set.dexterity %></p>
+  </li>
+  <li>
+    <p class="label">Constitution</p>
+    <p class="value"><%= @role.attr_set.constitution %></p>
+  </li>
+  <li>
+    <p class="label">Intelligence</p>
+    <p class="value"><%= @role.attr_set.intelligence %></p>
+  </li>
+  <li>
+    <p class="label">Wisdom</p>
+    <p class="value"><%= @role.attr_set.wisdom %></p>
+  </li>
+  <li>
+    <p class="label">Charisma</p>
+    <p class="value"><%= @role.attr_set.charisma %></p>
+  </li>
+  <% else %>
+  <div class="filler">
+    <script type="text/ng-template" id="initializeAttrs.html">
+      <%= render :partial => "roles/attributes/attr_init" %>
+    </script>
+    <%= content_tag :a, "Initialize Attributes", :href => "", :ng_hide => "initializeAttrs.open", :ng_click => "openInitializeAttrs()" %>
+  </div>
+  <% end %>
+  <div ng-include="activeForm()"></div>
+</ul>

@@ -9,6 +9,9 @@ body {
 
 a {
   color: $app-black;
+  &:hover {
+    color: lighten($app-black, 20%);
+  }
 }
 
 header, .wrapper {
@@ -24,6 +27,7 @@ header {
   padding: 10px 20px;
   #app-logo {
     margin: 0;
+    float: left;
     a {
       text-decoration: none;
       font-size: 30px;
@@ -32,15 +36,16 @@ header {
   }
   #app-signature {
     font-size: 15px;
+    float: left;
   }
   #app-logo, #app-signature, nav {
     box-sizing: border-box;
     line-height: 45px;
     padding: 0 10px;
-    float: left;
     height: 45px;
   }
   nav {
+    float: right;
     ul > li {
       display: inline-block;
       + li  {

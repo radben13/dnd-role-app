@@ -5,6 +5,7 @@ class Proficiency < ActiveRecord::Base
   scope :languages, -> {where(:group => "language")}
   scope :valid_armors, -> {where(:group => "armor")}
   scope :valid_weapons, -> {where(:group => "weapon")}
+  scope :spells, -> {where(:group => "spell")}
   scope :skills, -> {where(:group => "skills")}
   
 end

@@ -35,12 +35,84 @@ class Role < ActiveRecord::Base
     end
   end
   
+  def roll (dice)
+    dice_count = dice[0].floor
+    dice_value = dice[1]
+    if dice_count < 0
+      raise "Attempt to use a negative count of dice."
+    end
+    result = 0
+    while dice_count > 0
+      result += 1 + rand(dice_value)
+      dice_count -= 1
+    end
+    result
+  end
+  
+  def hit_die
+    case self[:role_type]
+    when "fighter"
+      return 10
+    when "ranger"
+      return 10
+    when "wizard"
+      return 6
+    when "sorcerer"
+      return 6
+    when "rogue"
+      return 8
+    when "cleric"
+      return 8
+    when "paladin"
+      return 10
+    when "bard"
+      return 8
+    when "barbarian"
+      return 12
+    when "warlock"
+      return 8
+    when "druid"
+      return 8
+    when "monk"
+      return 8
+    else
+      raise "It is trying to use #{self[:role_type]} as a role type."
+    end
+  end
+  
   def self.get_experience_list
     return [0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,165000,195000,225000,265000,305000,355000]
   end
   
   def get_proficiency_bonus
     2 + (self[:level] / 4).floor
+  end
+  
+  def add_next_level
+    if new_level?
+      self[:level] += 1
+      add_class_proficiencies
+      add_racial_proficiencies
+    else
+      nil
+    end
+  end
+  
+  def hp
+    if self[:hit_points].blank?
+      set_base_hit_points
+    end
+    if !attr_set.blank?
+      self[:hit_points] + attr_set.con_mod * level
+    else
+      self[:hit_points]
+    end
+  end
+  
+  def set_base_hit_points
+    self[:hit_points] = hit_die
+    self[:hit_points] += roll [self[:level] - 1, hit_die]
+    self.save
   end
   
   def new_level?
@@ -63,6 +135,40 @@ class Role < ActiveRecord::Base
     end
   end
   
+  def self.get_race_speed (race)
+    case race
+    when "human"
+      return 30
+    when "dwarf"
+      return 25
+    when "elf"
+      return 30
+    when "half_elf"
+      return 30
+    when "halfling"
+      return 25
+    when "gnome"
+      return 25
+    when "half_orc"
+      return 30
+    else
+      raise "Trying to use #{race} as a race. It is not recognized when searching for base speed."
+    end
+  end
+  
+  def speed
+    speed = Role.get_race_speed self[:race]
+    # once tracking equipped armor and inventory weight
+    # if armor_str > attr_set.str
+    #   speed -= 10
+    # end
+    # if inventory_weight > carrying_capacity
+    #   speed 
+    # end
+    # encumberance and armor slowing will be calculated here
+    speed
+  end
+  
   def carrying_capacity
     if !attr_set.blank?
       return (attr_set.strength * 15 * size_carrying_modifier).floor
@@ -80,6 +186,7 @@ class Role < ActiveRecord::Base
   def add_racial_proficiencies
     
   end
+  
   
   def is_valid_role_type?
     if role_type.blank?

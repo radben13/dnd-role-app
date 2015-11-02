@@ -1,9 +1,11 @@
 class CreatePlayers < ActiveRecord::Migration
   def change
     create_table :players do |t|
-      t.string :name, index: true, null: false
+      t.string :email, index: true, null: false
+      t.string :name
+      t.string :permission, default: "player", null: false
       t.string :profile_img_url
-      t.integer :pin
+      t.string :password_digest
       t.timestamps null: false
     end
     

@@ -1,4 +1,4 @@
-<%= form_for [@player, @role], :html => {"ng-controller" => "RoleFormCtrlOne"} do |f| %>
+<%= form_for @role, :url => create_role_path(@player), :method => :post, :html => {"ng-controller" => "RoleFormCtrlOne"} do |f| %>
   <% if @role.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
