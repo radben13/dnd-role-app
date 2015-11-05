@@ -18,19 +18,20 @@
       <ul>
         <% if active_session %>
           <li><%= link_to current_player.name, player_path(current_player) %></li>
+          <li><%= link_to "Items", items_path %></li>
           <li>
             <%= link_to logout_path do %>
               logout <i class="fa fa-sign-out"></i>
             <% end %>
           </li>
         <% else %>
+          <li><%= link_to "Items", items_path %></li>
           <li>
             <%= link_to login_path do %>
               login <i class="fa fa-sign-in"></i>
             <% end %>
           </li>
         <% end %>
-        <li><%= link_to "Items", items_path %></li>
       </ul>
     </nav>
 </header>

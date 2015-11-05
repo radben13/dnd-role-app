@@ -1,0 +1,19 @@
+@import "tools/tools.scss";
+.proficiency {
+  .value-header {
+    font-size: 20px;
+  }
+}
+
+.proficiencies {
+  .pending {
+    background: $flash-yellow;
+  }
+  .description {
+    color: lighten($app-black, 20%);
+  }
+  .tip {
+    font-size: 10px;
+    color: lighten($app-black, 20%);
+  }
+}

@@ -1,0 +1,14 @@
+<h2>Proficiencies</h2>
+<ul class="proficiencies">
+  <%= raw "<hr>" if @proficiencies.count %>
+  <% for proficiency in @proficiencies %>
+   <li>
+     <div><span class="<%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
+     <div><%= link_to "View Details", proficiency_path(proficiency) %></div>
+   </li>
+   <hr>
+  <% end %>
+  <% if has_dm_permission %>
+    <li><%= link_to "Add New Proficiency", new_proficiency_path %></li>
+  <% end %>
+</ul>

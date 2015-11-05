@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_session
   helper_method :current_player
   helper_method :has_permissions
+  helper_method :has_dm_permission
+  helper_method :has_admin_permission
+  
   
   
   before_action :update_session_time
@@ -35,6 +38,14 @@ class ApplicationController < ActionController::Base
     else
       false
     end
+  end
+  
+  def has_dm_permission
+    active_session && (current_player.permission == "admin" || current_player.permission == "dm")
+  end
+  
+  def has_admin_permission
+    active_session && current_player.permission == "admin"
   end
   
   def verify_session

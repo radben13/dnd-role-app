@@ -14,5 +14,6 @@
  *= require players
  *= require roles
  *= require items
+ *= require proficiencies
  *= require_self
  */

@@ -1,0 +1,12 @@
+<div class="proficiency">
+  <h2><%= @proficiency.name %></h2>
+  <div>
+    <div class="value-header">Type</div>
+    <p><%= @proficiency.group.titleize %></p>
+  </div>
+  <div>
+    <div class="value-header">Description</div>
+    <p><%= @proficiency.description %></p>
+  </div>
+  <div><%= link_to "Back to Proficiency List", proficiencies_path %></div>
+</div>

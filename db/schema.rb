@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031234231) do
+ActiveRecord::Schema.define(version: 20151103084430) do
 
   create_table "attr_sets", force: :cascade do |t|
     t.integer  "constitution"
@@ -44,26 +44,31 @@ ActiveRecord::Schema.define(version: 20151031234231) do
   add_index "item_properties_items", ["item_property_id", "item_id"], name: "index_item_properties_items_on_item_property_id_and_item_id"
 
   create_table "items", force: :cascade do |t|
-    t.string   "name",             null: false
-    t.string   "slug",             null: false
+    t.string   "name",                null: false
+    t.string   "slug",                null: false
     t.string   "type"
     t.string   "img_url"
     t.text     "modifier"
     t.integer  "price_in_copper"
     t.integer  "weight"
-    t.boolean  "can_be_weapon",    null: false
-    t.boolean  "can_be_armor",     null: false
+    t.boolean  "can_be_weapon",       null: false
+    t.boolean  "can_be_armor",        null: false
     t.integer  "armor"
     t.integer  "dmg_dice_value_s"
     t.integer  "dmg_dice_count_s"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.text     "description"
     t.integer  "dmg_dice_count_m"
     t.integer  "dmg_dice_value_m"
     t.string   "dmg_type"
     t.string   "critical"
     t.integer  "range"
+    t.string   "weapon_modifier"
+    t.integer  "weapon_range"
+    t.integer  "second_weapon_range"
+    t.integer  "dmg_dice_value_l"
+    t.integer  "dmg_dice_count_l"
   end
 
   add_index "items", ["can_be_armor"], name: "index_items_on_can_be_armor"
@@ -83,10 +88,11 @@ ActiveRecord::Schema.define(version: 20151031234231) do
   add_index "players", ["email"], name: "index_players_on_email"
 
   create_table "proficiencies", force: :cascade do |t|
-    t.string "name",        null: false
+    t.string "name",           null: false
     t.string "group"
     t.string "slug"
     t.text   "description"
+    t.string "approval_state"
   end
 
   add_index "proficiencies", ["slug"], name: "index_proficiencies_on_slug", unique: true
@@ -102,6 +108,7 @@ ActiveRecord::Schema.define(version: 20151031234231) do
   create_table "role_items", force: :cascade do |t|
     t.integer "role_id"
     t.integer "item_type_id"
+    t.boolean "equipped"
   end
 
   add_index "role_items", ["role_id"], name: "index_role_items_on_role_id"

@@ -2,6 +2,9 @@ class UserSessionsController < ApplicationController
   before_filter :verify_session, only: :logout
   
   def new
+    if active_session
+      current_session.destroy
+    end
     player_properties = player_params
     @player = Player.where(email: player_properties[:email]).first
     if !@player.blank? && @player.authenticate(player_properties[:password])
@@ -18,6 +21,9 @@ class UserSessionsController < ApplicationController
   end
   
   def login
+    if active_session
+      flash[:notice] = "You are already signed in as #{current_player.name}."
+    end
   end
   
   def logout

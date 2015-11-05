@@ -56,6 +56,9 @@ header {
         display: block;
         padding: 0 10px;
         text-decoration: none;
+        @media screen and (max-width: 400px) {
+          font-size: 16px;
+        }
       }
     }
   }
@@ -65,6 +68,23 @@ header {
   padding: 10px 20px 20px;
   background: #fff;
   border-bottom: 2px solid $app-gray;
+}
+
+.notification {
+  @extend %clearfix;
+  > p {
+    box-sizing: border-box;
+    float: left;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    &.notice {
+      background: $flash-green;
+    }
+    &.alert {
+      background: $flash-red;
+    }
+  }
 }
 
 footer {

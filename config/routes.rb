@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   post "roles/:id/edit", :to => "roles#update", :as => :update_role
   
   resources :items
+  resources :proficiencies, only: [:edit, :index, :show, :new]
+  
+  post "proficiency/create", :to => "proficiencies#create", :as => :create_proficiency
+  post "proficiencies/:id/update", :to => "proficiencies#update", :as => :update_proficiency
   
   get "admin/test", :to => "pages#dnd_test"
   get "api/roles/types", :to => "roles#get_role_types"
