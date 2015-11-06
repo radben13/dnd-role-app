@@ -41,11 +41,11 @@ class ApplicationController < ActionController::Base
   end
   
   def has_dm_permission
-    active_session && (current_player.permission == "admin" || current_player.permission == "dm")
+    active_session && current_player.is_dm?
   end
   
   def has_admin_permission
-    active_session && current_player.permission == "admin"
+    active_session && current_player.is_admin?
   end
   
   def verify_session

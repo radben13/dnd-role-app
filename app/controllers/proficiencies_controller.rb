@@ -30,17 +30,24 @@ class ProficienciesController < ApplicationController
   end
   
   def delete
-    if !has_dm_permission
+    if !has_admin_permission
       redirect_to "/", :status => 301, :alert => "You do not have permission to do that."
     else
+      @proficiency = Proficiency.find(params[:id])
+      name = @proficiency.name
+      if !@proficiency.blank? && @proficiency.destroy
+        redirect_to "/proficiencies", :status => 301, :notice => "#{name} has been deleted."
+      else
+        redirect_to "/proficiencies", :status => 301, :alert  => "That record could not be deleted."
+      end
     end
   end
   
   def update
-    if !has_dm_permission
+    @proficiency = Proficiency.find(params[:id])
+    if !has_dm_permission || (@proficiency.requires_admin_permission && !has_admin_permission)
       redirect_to "/", :status => 301, :alert => "You do not have permission to do that."
     else
-      @proficiency = Proficiency.find(params[:id])
       if @proficiency.update(proficiency_params)
         redirect_to proficiencies_path, :status => 301, notice: "#{@proficiency.name} has been updated!"
       else

@@ -10,10 +10,16 @@ class Proficiency < ActiveRecord::Base
   scope :skills, -> {where(:group => "skills")}
   
   scope :pending, -> {where(:approval_state => "pending")}
+  scope :implementing, -> {where(:approval_state => "implementing")}
   scope :approved, -> {where(:approval_state => "approved")}
   
   def self.group_types
     ["languages", "armors", "weapons", "abilities", "spells", "skills"]
   end
+  
+  def requires_admin_permission
+    approval_state != "pending"
+  end
+  
   
 end

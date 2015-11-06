@@ -5,15 +5,19 @@
   }
 }
 
+form .tip {
+  font-size: 10px;
+  color: lighten($app-black, 20%);
+}
+
 .proficiencies {
+  .name {
+    font-weight: bold;
+  }
   .pending {
     background: $flash-yellow;
   }
   .description {
-    color: lighten($app-black, 20%);
-  }
-  .tip {
-    font-size: 10px;
     color: lighten($app-black, 20%);
   }
 }

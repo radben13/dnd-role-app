@@ -3,7 +3,7 @@
   <%= raw "<hr>" if @proficiencies.count %>
   <% for proficiency in @proficiencies %>
    <li>
-     <div><span class="<%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
+     <div><span class="name <%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
      <div><%= link_to "View Details", proficiency_path(proficiency) %></div>
    </li>
    <hr>
