@@ -1,0 +1,27 @@
+<h3>General Stats</h3>
+<p class="tip">Skills Need to be Implemented</p>
+<ul class="role-general-stats">
+  <li>
+    <p class="label">Hit Points</p>
+    <p class="shield-foot"><%= @role.hp %></p>
+  </li>
+  <li>
+    <p class="label">Perception (DC)</p>
+    <p class="shield-foot"><%= 10 + @role.attr_set.wis_mod %></p>
+  </li>
+  <li>
+    <p class="label">Proficiency Bonus</p>
+    <p class="shield-foot"><%= "+" + @role.get_proficiency_bonus.to_s %></p>
+  </li>
+  <li>
+    <p class="label">Initiative</p>
+    <p class="shield-foot"><%= show_mod :dexterity %></p>
+  </li>
+  <li <%= raw "class=\"slowed\"" if @role.encumbered? %>>
+    <p class="label">Speed</p>
+    <p class="shield-foot"><%= @role.speed.to_s + " Feet" %></p>
+    <% if @role.encumbered? %>
+      <p class="hover-message">You are encumbered.</p>
+    <% end %>
+  </li>
+</ul>

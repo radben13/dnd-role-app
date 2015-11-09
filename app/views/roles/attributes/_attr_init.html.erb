@@ -1,8 +1,47 @@
-<%= form_tag do %>
-  <%= content_tag :div, :ng_init => "potentialAbilityScores = " + build_ability_score_list do %>
-    <p>Generated Ability Scores</p>
+<%= form_for AttrSet.new(:role_id => @role.id), :url => new_role_attr_set_path(@role), :html => {:ng_controller => "NewAttrSetController"}, :method => :post do |f| %>
+  <%= content_tag :div, :ng_init => "setRandomPotentialAbilityScores(" + build_random_ability_score_list + "); setStandardPotentialAbilityScores(" + build_standard_ability_score_list + ")" do %>
     <div>
-      {{potentialAbilityScores}}
+      <p class="detail-header">Preferred Abilities for a <%= @role.role_type.titleize %></p>
+      <% for ability in AttrSet.important_abilities(@role) %>
+        <% content_tag :p, ability %>
+      <% end %>
     </div>
+    <div>
+      <%= f.label :strength %>
+      <%= content_tag :select, :name => "attr_set[strength]", :id => "attr_set_strength", :ng_change => "chooseAttribute('strength')", :ng_model => "attributeSet.strength",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('strength')" do %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :dexterity %>
+      <%= content_tag :select, :name => "attr_set[dexterity]", :id => "attr_set_dexterity", :ng_change => "chooseAttribute('dexterity')", :ng_model => "attributeSet.dexterity",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('dexterity')" do %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :constitution %>
+      <%= content_tag :select, :name => "attr_set[constitution]", :id => "attr_set_constitution", :ng_change => "chooseAttribute('constitution')", :ng_model => "attributeSet.constitution",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('constitution')" do %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :intelligence %>
+      <%= content_tag :select, :name => "attr_set[intelligence]", :id => "attr_set_intelligence", :ng_change => "chooseAttribute('intelligence')", :ng_model => "attributeSet.intelligence",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('intelligence')" do %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :wisdom %>
+      <%= content_tag :select, :name => "attr_set[wisdom]", :id => "attr_set_wisdom", :ng_change => "chooseAttribute('wisdom')",:ng_model => "attributeSet.wisdom",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('wisdom')" do %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :charisma %>
+      <%= content_tag :select, :name => "attr_set[charisma]", :id => "attr_set_charisma", :ng_change => "chooseAttribute('charisma')", :ng_model => "attributeSet.charisma",
+          :ng_options => "potential.value as potential.value for potential in validPotentialAbilityScores('charisma')" do %>
+      <% end %>
+    </div>
+    <%= f.submit "Save Ability Scores", :ng_show => "validValues()" %>
   <% end %>
 <% end %>

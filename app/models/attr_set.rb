@@ -75,6 +75,16 @@ class AttrSet < ActiveRecord::Base
     end
   end
   
+  def self.is_proficient_in(ability, role)
+    proficiencies = saving_throw_proficiencies(role)
+    proficiencies.each do |proficientAbility|
+      if ability == proficientAbility.to_sym
+        return true
+      end
+    end
+    return false
+  end
+  
   def self.saving_throw_proficiencies (role)
     case role.role_type
     when "fighter"
@@ -126,13 +136,13 @@ class AttrSet < ActiveRecord::Base
       self[:intelligence] += 1
     when "elf"
       self[:dexterity] += 2
-    when "half-elf"
+    when "half_elf"
       self[:charisma] += 2
       max1 = :constitution
       max2 = :wisdom
       for attribute in AttrSet.get_attribute_list
         if attribute != max1 && attribute != max2 && attribute != :charisma
-          if self[attribute] >= self[max1]
+          if self[attribute] >= self[max1] && self[attribute] + 1 <= 20
             if self[max2] <= self[max1]
               max2 = max1
               max1 = attribute
@@ -146,7 +156,7 @@ class AttrSet < ActiveRecord::Base
       end
       self[max1] += 1
       self[max2] += 1
-    when "half-orc"
+    when "half_orc"
       self[:strength] += 2
       self[:constitution] += 1
     when "halfling"
@@ -155,6 +165,15 @@ class AttrSet < ActiveRecord::Base
       self[:intelligence] += 2
     else
       raise "It is trying to use #{role.race} as a race. Attr_Sets do not recognize this."
+    end
+    validate_ability_scores
+  end
+  
+  def validate_ability_scores
+    for ability in AttrSet.get_attribute_list
+      if self[ability] > 20
+        self[ability] = 20
+      end
     end
   end
   

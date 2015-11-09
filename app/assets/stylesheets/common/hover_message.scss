@@ -1,0 +1,20 @@
+.hover-message {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: $flash-yellow;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  border: 1px solid $app-black;
+}
+
+// located in tools/mixin.scss:
+// @mixin hold-hover-message($position_type: "relative") {
+//   position: $position_type;
+//   &:hover .hover-message {
+//     display: block;
+//   }
+// }

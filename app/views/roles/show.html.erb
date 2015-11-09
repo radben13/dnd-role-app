@@ -1,7 +1,9 @@
+<% @body_id = "role-show" %>
 <div class="role-display">
 <div class="role-header">
+  <h3>Character Details</h3>
   <div>
-    <div class="value-header">Character Name</div>
+    <div class="value-header">Name</div>
     <p><%= @role.name %></p>
   </div>
   
@@ -14,13 +16,27 @@
     <div class="value-header">Race</div>
     <p><%= @role.race.titleize %></p>
   </div>
+  <div>
+    <div class="value-header">Level</div>
+    <p><%= @role.level %></p>
+  </div>
+</div>
+<% if @role.attr_set %>
+  <div class="detail-row">
+    <%= render :partial => "roles/general" %>
+  </div>
+<% end %>
+<div ng-controller="DndAttributesController" class="detail-row">
+  <%= render :partial => "roles/attributes/show" %>
+</div>
+<% if @role.attr_set %>
+<div class="detail-row">
+  <%= render :partial => "roles/attributes/saving_throws" %>
 </div>
 <div class="detail-row">
   <%= render :partial => "description" %>
 </div>
-<div class="detail-row">
-  <%= render :partial => "roles/attributes/show" %>
+<% end %>
 </div>
-</div>
-<%= link_to 'Delete', role_path(@role), :method => :delete, :data => {confirm: "Are you sure you wish to delete this role?"} %> |
+<%= link_to 'Delete', role_path(@role), :method => :delete, :data => {confirm: "Are you sure you wish to delete this character?"} %> |
 <%= link_to 'Edit', edit_role_path(@role) %>

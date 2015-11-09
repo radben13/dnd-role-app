@@ -1,0 +1,45 @@
+<h3>Saving Throws</h3>
+<ul class="role-saving-throws">
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:strength, @role) %>>
+    <p class="label">Strength</p>
+    <p class="shield-foot"><%= show_saving_throw(:strength) %></p>
+    <% if AttrSet.is_proficient_in(:strength, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:dexterity, @role) %>>
+    <p class="label">Dexterity</p>
+    <p class="shield-foot"><%= show_saving_throw(:dexterity) %></p>
+    <% if AttrSet.is_proficient_in(:dexterity, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:constitution, @role) %>>
+    <p class="label">Constitution</p>
+    <p class="shield-foot"><%= show_saving_throw(:constitution) %></p>
+    <% if AttrSet.is_proficient_in(:constitution, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:intelligence, @role) %>>
+    <p class="label">Intelligence</p>
+    <p class="shield-foot"><%= show_saving_throw(:intelligence) %></p>
+    <% if AttrSet.is_proficient_in(:intelligence, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:wisdom, @role) %>>
+    <p class="label">Wisdom</p>
+    <p class="shield-foot"><%= show_saving_throw(:wisdom) %></p>
+    <% if AttrSet.is_proficient_in(:wisdom, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+  <li <%= raw "class=\"proficient\"" if AttrSet.is_proficient_in(:charisma, @role) %>>
+    <p class="label">Charisma</p>
+    <p class="shield-foot"><%= show_saving_throw(:charisma) %></p>
+    <% if AttrSet.is_proficient_in(:charisma, @role) %>
+      <p class="hover-message">You are proficient in this saving throw.</p>
+    <% end %>
+  </li>
+</ul>

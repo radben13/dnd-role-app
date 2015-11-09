@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
       current_session.destroy
     end
     player_properties = player_params
-    @player = Player.where(email: player_properties[:email]).first
+    @player = Player.where(email: player_properties[:email].downcase).first
     if !@player.blank? && @player.authenticate(player_properties[:password])
       desired_url = session[:referrer] || "/"
       @this_session = UserSession.new
@@ -35,7 +35,9 @@ class UserSessionsController < ApplicationController
   private
   
   def player_params
-    params.require(:player).permit(:password, :email)
+    values = params.require(:player).permit(:password, :email)
+    values[:email].downcase!
+    values
   end
   
 end

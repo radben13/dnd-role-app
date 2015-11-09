@@ -1,6 +1,10 @@
 class RolesController < ApplicationController
   before_filter :verify_session, except: :get_role_types
-  helper_method :build_ability_score_list
+  helper_method :build_standard_ability_score_list
+  helper_method :build_random_ability_score_list
+  helper_method :show_mod
+  helper_method :show_saving_throw
+  
   
   def show
     if has_role_permissions
@@ -48,7 +52,7 @@ class RolesController < ApplicationController
       @role = current_role
       @player = @role.player
       if @role.update(role_params)
-        redirect_to role_path(@role), :action => :show, :alert => "Role successfully edited!"
+        redirect_to role_path(@role), :action => :show, :notice => "Role successfully edited!"
       else
         redirect_to edit_role_path(@role)
       end
@@ -83,15 +87,28 @@ class RolesController < ApplicationController
     ""
   end
   
-  def build_ability_score_list
+  def build_random_ability_score_list
     results = []
     6.times do
-      result = @role.roll([4,6])
-      while result > 20
-       result = @role.roll([4,6])
+      rolls = []
+      4.times do 
+        rolls.push(@role.roll([1,6]))
       end
-      results.push(result)
+      min = 0
+      [1,2,3].each do |val|
+        if rolls[val] < rolls[min] 
+          min = val
+        end
+      end
+      rolls.delete_at(min)
+      rollResult = rolls[0] + rolls[1] + rolls[2]
+      results.push(rollResult)
     end
+    results.to_json
+  end
+  
+  def build_standard_ability_score_list
+    results = [15,14,13,12,10,8]
     results.to_json
   end
   
@@ -101,6 +118,30 @@ class RolesController < ApplicationController
   
   def has_role_permissions
     active_session && (current_player == current_role.player || current_player.permission == "admin")
+  end
+  
+  def show_mod(ability)
+    result = "+"
+    mod = AttrSet.get_modifier(@role.attr_set[ability])
+    if mod > 0
+      return result + mod.to_s
+    else
+      return mod
+    end
+  end
+  
+  def show_saving_throw(ability)
+    result = "+"
+    saving_throw_bonus = AttrSet.get_modifier(@role.attr_set[ability])
+    if AttrSet.is_proficient_in(ability, @role)
+      saving_throw_bonus += @role.get_proficiency_bonus
+    end
+    # include proficiency modification opportunity
+    if saving_throw_bonus > 0
+      return result + saving_throw_bonus.to_s
+    else
+      return saving_throw_bonus
+    end
   end
   
   def role_params

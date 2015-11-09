@@ -1,4 +1,18 @@
 @import "tools/tools.scss";
+
+body#role-show {
+  .wrapper {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .notification {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+  }
+}
+
 .role-list {
   @extend %clearfix;
   margin-top: 10px;
@@ -83,10 +97,69 @@
 }
 
 .role-display {
+  
+.role-header {
+  @extend %display-row;
+  margin-top: 0;
+}
 
 .value-header {
   font-size: 15px;
   font-weight: bold;
+}
+
+.detail-row {
+  @extend %display-row;
+  background: $app-white;
+  border-top: 2px solid darken($app-gray, 10%);
+  border-bottom: 2px solid darken($app-gray, 10%);
+  &:nth-child(2n + 1) {
+    background: $app-gray;
+  }
+  + .detail-row {
+    border-top: none;
+  }
+  .description {
+    white-space: pre-wrap;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+  }
+}
+
+.role-ability-scores {
+  @include shield-list;
+  > li {
+    background: #fff;
+  }
+  .value {
+    padding: 10px 20px;
+    + .shield-foot {
+      border-top: 2px solid $app-black;
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+    }
+  }
+}
+
+.role-saving-throws {
+  @include shield-list;
+  > li {
+    background: #fff;
+    &.proficient {
+      background: $flash-green;
+    }
+  }
+}
+
+.role-general-stats {
+  @include shield-list;
+  > li {
+    background: #fff;
+    &.slowed {
+      background: $flash-red;
+    }
+  }
 }
 
 }

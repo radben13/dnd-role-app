@@ -72,3 +72,41 @@
   }
   
 }
+
+
+
+@mixin shield-list {
+  @extend %clearfix;
+  text-align: center;
+  > li {
+    @include hold-hover-message;
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 135px;
+    text-align: center;
+    border: 2px solid $app-black;
+    border-radius: 5px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-bottom: 10px;
+  } 
+  .label {
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 20px;
+    border-bottom: 1px solid $app-black;
+  }
+
+  .shield-foot {
+    width: 75px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+}
+
+@mixin hold-hover-message($position_type: "relative") {
+  position: #{$position_type};
+  &:hover .hover-message {
+    display: block;
+  }
+}

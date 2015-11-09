@@ -10,7 +10,7 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body <%= raw "id=\"#{@body_id}\"" if @body_id %>>
 <header>
     <h1 id="app-logo"><a href="/">DnD Roles</a></h1>
     <h2 id="app-signature">by Radben13</h2>
@@ -36,6 +36,7 @@
     </nav>
 </header>
 <div class="wrapper">
+<% if alert || notice %>
 <div class="notification">
   <% if !alert.blank? %>
     <p class="alert"><%= alert %></p>
@@ -44,6 +45,7 @@
     <p class="notice"><%= notice %></p>
   <% end %>
 </div>
+<% end %>
 <%= yield %>
 </div>
 

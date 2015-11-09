@@ -2,13 +2,13 @@ Rails.application.routes.draw do
   
   resources :players, :param => :player_id
   
-  resources :roles, only: [:show, :edit, :update, :destroy] do
-    resources :attr_sets
-  end
+  resources :roles, only: [:show, :edit, :update, :destroy]
   
   get "players/:player_id/new_role", :to => "roles#new", :as => :new_role
   post "players/:player_id/create_role", :to => "roles#create", :as => :create_role
   post "roles/:id/edit", :to => "roles#update", :as => :update_role
+  
+  post "roles/:role_id/attr_sets/new", :to => "attr_sets#create", :as => :new_role_attr_set
   
   resources :items
   resources :proficiencies, only: [:edit, :index, :show, :new]

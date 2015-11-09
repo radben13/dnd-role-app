@@ -1,18 +1,33 @@
 %wrapped {
-    max-width: 1080px;
-    min-width: 320px;
-    margin: 0 auto;
-    box-sizing: border-box;
+  max-width: 1080px;
+  min-width: 320px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 %clearfix {
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 %link-list {
-    
+  
+}
+
+%display-row {
+  padding: 10px 20px;
+  .tip {
+    text-align: center;
+  }
+  h3 {
+    font-family: 'Kaushan Script', cursive;
+    text-align: center;
+    font-size: 25px;
+    + * {
+      margin-top: 10px;
+    }
+  }
 }

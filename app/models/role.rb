@@ -35,6 +35,9 @@ class Role < ActiveRecord::Base
     end
   end
   
+  def initiate_role
+  end
+  
   def roll (dice)
     dice_count = dice[0].floor
     dice_value = dice[1]
@@ -154,6 +157,11 @@ class Role < ActiveRecord::Base
     else
       raise "Trying to use #{race} as a race. It is not recognized when searching for base speed."
     end
+  end
+  
+  def encumbered?
+    
+    nil
   end
   
   def speed
