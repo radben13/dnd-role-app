@@ -1,0 +1,6 @@
+<h2>Edit <%= @proficiency.name %></h2>
+<%= form_for @proficiency, :url => update_proficiency_path(@proficiency), :method => :post do |f| %>
+  <%= render :partial => "form", locals: {:f => f} %>
+<% end %>
+
+<%= link_to "Back to Proficiency List", proficiencies_path %>

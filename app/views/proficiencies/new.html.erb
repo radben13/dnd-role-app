@@ -1,32 +1,6 @@
 <h2>Create New Proficiency</h2>
 <%= form_for @proficiency, :url => create_proficiency_path, :method => :post do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <p class="tip">Check the spelling and make sure it's saved as a proper noun.</p>
-  </div>
-  <div>
-    <%= f.label :slug do %>
-    <%= f.text_field :slug, :placeholder => "Slug" %>
-    <p class="tip">Lower case, and no special characters aside from underscores to replace spaces.</p>
-    <p class="tip">An example: The proficiency "Uncanny Dodge," would have the slug "uncanny_dodge".</p>
-    <% end %>
-  </div>
-  <div>
-    <%= f.label :group %>
-    <%= content_tag :select, :id => "proficiency_group", :name => "proficiency[group]" do %>
-       <% for group in Proficiency.group_types %>
-          <%= content_tag :option, group %>
-       <% end %>
-    <% end %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <div><%= f.text_area :description %></div>
-  </div>
-  <div>
-    <%= f.submit %>
-  </div>
+  <%= render :partial => "form", locals: {:f => f} %>
 <% end %>
 
 <%= link_to "Back to Proficiency List", proficiencies_path %>

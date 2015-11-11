@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   
   post "proficiency/create", :to => "proficiencies#create", :as => :create_proficiency
   post "proficiencies/:id/update", :to => "proficiencies#update", :as => :update_proficiency
+  post "proficiencies/:id/implement", :to => "proficiencies#implement", :as => :implement_proficiency
+  post "proficiencies/:id/approve", :to => "proficiencies#approve", :as => :approve_proficiency
   
   get "admin/test", :to => "pages#dnd_test"
   get "api/roles/types", :to => "roles#get_role_types"

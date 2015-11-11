@@ -78,7 +78,13 @@ class PlayersController < ApplicationController
   private
   
   def player_params
-    params.require(:player).permit(:name, :profile_img_url, :email, :password, :password_confirmation)
+    results = params.require(:player).permit(:name, :profile_img_url, :email, :password, :password_confirmation)
+    results[:name] = resuts[:name].strip! || results[:name] if results[:name]
+    if results[:email]
+      results[:email] = resuts[:email].strip! || results[:email]
+      results[:email] = results[:email].downcase
+    end
+    results
   end
   
 end

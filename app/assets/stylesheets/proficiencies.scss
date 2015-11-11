@@ -12,6 +12,9 @@
   .pending {
     background: $flash-yellow;
   }
+  .implementing {
+    background: $flash-green;
+  }
   .description {
     color: lighten($app-black, 20%);
   }

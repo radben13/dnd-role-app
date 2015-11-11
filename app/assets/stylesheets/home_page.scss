@@ -13,17 +13,4 @@
     font-size: 20px;
     padding: 0 0 10px;
   }
-  a.button {
-    font-size: 20px;
-    line-height: 30px;
-    margin-top: 15px;
-    text-decoration: none;
-    color: $app-black;
-    border: 1px solid $app-black;
-    padding: 2px 5px;
-    &:hover, &:focus {
-      background: $flash-green;
-      text-decoration: none;
-    }
-  }
 }

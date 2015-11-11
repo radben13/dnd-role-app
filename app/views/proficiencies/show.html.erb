@@ -1,5 +1,11 @@
 <div class="proficiency">
   <h2><%= @proficiency.name %></h2>
+  <% if has_dm_permission %>
+  <div>
+    <div class="value-header">Slug</div>
+    <p><%= @proficiency.slug %></p>
+  </div>
+  <% end %>
   <div>
     <div class="value-header">Type</div>
     <p><%= @proficiency.group.titleize %></p>

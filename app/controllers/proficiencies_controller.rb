@@ -1,4 +1,6 @@
 class ProficienciesController < ApplicationController
+  helper_method :option_details
+  
   def new
     if !has_dm_permission
       redirect_to "/", :status => 301, :alert => "You do not have permissions to view this page."
@@ -43,6 +45,10 @@ class ProficienciesController < ApplicationController
     end
   end
   
+  def edit
+    @proficiency = Proficiency.find(params[:id])
+  end
+  
   def update
     @proficiency = Proficiency.find(params[:id])
     if !has_dm_permission || (@proficiency.requires_admin_permission && !has_admin_permission)
@@ -56,10 +62,44 @@ class ProficienciesController < ApplicationController
     end
   end
   
+  def implement
+    if has_admin_permission
+      @proficiency = Proficiency.find(params[:id])
+      if @proficiency.update(:approval_state => "implementing")
+        redirect_to proficiencies_path, :status => 301, :notice => "#{@proficiency.name} is now implementing."
+      else
+        redirect_to proficiencies_path, :status => 301, :alert => "There was a problem implementing #{@proficiency.name}."
+      end
+    else
+      redirect_to proficiencies_path, :status => 301, :alert => "You do not have permission to do that."
+    end
+  end
+  
+  def approve
+    if has_admin_permission
+      @proficiency = Proficiency.find(params[:id])
+      if @proficiency.update(:approval_state => "approved")
+        redirect_to proficiencies_path, :status => 301, :notice => "#{@proficiency.name} is now approved."
+      else
+        redirect_to proficiencies_path, :status => 301, :alert => "There was a problem approving #{@proficiency.name}."
+      end
+    else
+      redirect_to proficiencies_path, :status => 301, :alert => "You do not have permission to do that."
+    end
+  end
+  
   protected
   
   def proficiency_params
-    params.require(:proficiency).permit(:group, :description, :name)
+    params.require(:proficiency).permit(:group, :slug, :description, :name)
+  end
+  
+  def option_details(group)
+    if group == @proficiency.group
+      [:option, group, :selected => ""]
+    else
+      [:option, group]
+    end
   end
   
 end

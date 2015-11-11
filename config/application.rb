@@ -24,5 +24,7 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     
     config.filter_parameters << :password
+    
+    config.action_mailer.default_url_options = {:host => "dnd-role-app-radben13.c9.io"}
   end
 end

@@ -1,14 +1,54 @@
 <h2>Proficiencies</h2>
 <ul class="proficiencies">
   <%= raw "<hr>" if @proficiencies.count %>
-  <% for proficiency in @proficiencies %>
-   <li>
-     <div><span class="name <%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
-     <div><%= link_to "View Details", proficiency_path(proficiency) %></div>
-   </li>
-   <hr>
+  <% for proficiency in @proficiencies.approved %>
+    <li>
+      <div><span class="name <%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
+      <div class="options">
+        <%= link_to "View Details", proficiency_path(proficiency), :class => "button" %>
+      <% if has_admin_permission || (has_dm_permission && !proficiency.requires_admin_permission) %>
+        <%= link_to "Edit", edit_proficiency_path(proficiency), :class => "button" %>
+      <% end %>
+      <% if has_admin_permission && proficiency.approval_state == "pending" %>
+        <%= link_to "Approve", approve_proficiency_path(proficiency), :class => "button", :method => :post %>
+        <%= link_to "Implement", implement_proficiency_path(proficiency), :class => "button", :method => :post %>
+      <% elsif has_admin_permission && proficiency.approval_state == "implementing" %>
+        <%= link_to "Approve", approve_proficiency_path(proficiency), :class => "button", :method => :post %>
+      <% end %>
+      </div>
+    </li>
+    <hr>
+  <% end %>
+  <% for proficiency in @proficiencies.implementing %>
+    <li>
+      <div><span class="name <%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
+      <div class="options">
+        <%= link_to "View Details", proficiency_path(proficiency), :class => "button" %>
+      <% if has_admin_permission %>
+        <%= link_to "Edit", edit_proficiency_path(proficiency), :class => "button" %>
+        <%= link_to "Approve", approve_proficiency_path(proficiency), :class => "button", :method => :post %>
+      <% end %>
+      </div>
+    </li>
+    <hr>
+  <% end %>
+  <% for proficiency in @proficiencies.pending %>
+    <li>
+      <div><span class="name <%= proficiency.approval_state %>"><%= proficiency.name %></span> - <span class="description"><%= truncate(proficiency.description, length: 125, separator: " ") %></span></div>
+      <div class="options">
+        <%= link_to "View Details", proficiency_path(proficiency), :class => "button" %>
+      <% if has_dm_permission %>
+        <%= link_to "Edit", edit_proficiency_path(proficiency), :class => "button" %>
+      <% end %>
+      <% if has_admin_permission %>
+        <%= link_to "Approve", approve_proficiency_path(proficiency), :class => "button", :method => :post %>
+        <%= link_to "Implement", implement_proficiency_path(proficiency), :class => "button", :method => :post %>
+      <% end %>
+      </div>
+    </li>
+    <hr>
   <% end %>
   <% if has_dm_permission %>
-    <li><%= link_to "Add New Proficiency", new_proficiency_path %></li>
+    <li><%= link_to "Add New Proficiency", new_proficiency_path, :class => "button" %></li>
   <% end %>
 </ul>

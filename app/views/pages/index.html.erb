@@ -1,18 +1,18 @@
 <section class="home-page">
     <h2>Online D&D Tools</h2>
-    <div class="intro">
-      <h3>What's Here?</h3>
-      <p>Once we get the database populated, we will have an item database, proficiency (or feat) database, and eventually a monster database.</p>
-      <p>Players can also make their own accounts and keep track of their characters here on our digital character sheets.</p>
-      <p class="tip">Pending completion.</p>
-    </div>
-    
     <% if !active_session %>
       <div>
         <p class="strong">You have not logged in!</p>
         <p><%= link_to "Login", "/login", :class => "button" %> or <%= link_to "Create an Account", new_player_path, :class => "button" %></p>
       </div>
     <% end %>
+    <div class="intro">
+      <h3>What's Here?</h3>
+      <p>Once we get the database populated, we will have an item collection, proficiency (or feat) reference, and eventually a monster list.</p>
+      <p>Players can also make their own accounts and keep track of their characters here on our digital character sheets.</p>
+      <p class="tip">Pending completion.</p>
+    </div>
+    
     
     <div>
       We are currently working on populating <%= link_to "the proficiency database.", proficiencies_path %>
